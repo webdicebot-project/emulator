@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Web DiceBot's Emulator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.2.2/sha512.js"></script>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>Web DiceBot's Emulator</h1>
+      Balance: <span id="balance">0.00</span> WDB
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Balance</label>
+            <input
+              type="text"
+              class="form-control"
+              id="enterBalance"
+              value="1000"
+              onchange="emulator.setBalance(this)"
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Decimal balance</label>
+            <input
+              type="text"
+              class="form-control"
+              id="enterDecimalBalance"
+              value="2"
+              onchange="emulator.setDecimal(this)"
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Client seed</label>
+            <input
+              type="text"
+              class="form-control"
+              id="enterClientSeed"
+              value=""
+              onchange="emulator.setClientSeed(this)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function randomString(length) {
+      let result = "";
+      const characters = "abcdef1234567890";
+      const charactersLength = characters.length;
+      let counter = 0;
+      while (counter < length) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+        counter += 1;
+      }
+      return result;
+    }
+
+    let emulator = {
+      balance: 1000,
+      getBalance() {
+        return this.balance;
+      },
+      setBalance(target) {
+        // console.log(target.value);
+        this.balance = Number(target.value);
+        this.updateStatic();
+      },
+      decimal: 2,
+      setDecimal(target) {
+        this.decimal = Number(target.value);
+        this.updateStatic();
+      },
+      clientSeed: randomString(12),
+      serverSeed: randomString(32),
+      setClientSeed(target) {
+        this.clientSeed = target.value;
+        this.updateStatic();
+      },
+      nonce: 0,
+      upNonce() {
+        this.nonce++;
+      },
+      getRoll(serverSeed, clientSeed, nonce) {
+        var hash = sha512(serverSeed + clientSeed + nonce);
+        var index = 0;
+        do {
+          var lucky = parseInt(hash.substr(index, 5), 16);
+          index += 5;
+        } while (lucky >= 1000000);
+        return lucky % 10000;
+      },
+      getResult(amount, target, side) {
+        let win = null;
+        let profit = null;
+        let payout = 9999 / target;
+        this.upNonce();
+        const resultNumber = this.getRoll(
+          this.serverSeed,
+          this.clientSeed,
+          this.nonce
+        );
+        if (side === "over") {
+          if (resultNumber > target) {
+            win = true;
+          } else {
+            win = false;
+          }
+        } else if (side === "under") {
+          if (resultNumber < target) {
+            win = true;
+          } else {
+            win = false;
+          }
+        }
+        if (win) {
+          profit = amount * payout - amount;
+        } else {
+          profit = 0 - amount;
+        }
+        profit = Number(profit.toFixed(emulator.decimal));
+        return {
+          resultNumber,
+          profit,
+          nonce: this.nonce,
+          serverSeed: this.serverSeed,
+        };
+      },
+      updateStatic() {
+        $("#balance").text(emulator.balance.toFixed(emulator.decimal));
+        $("#enterClientSeed").val(emulator.clientSeed);
+      },
+    };
+
+    $(document).ready(() => {
+      emulator.updateStatic();
+    });
+  </script>
+</html>
