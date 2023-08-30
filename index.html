@@ -15,16 +15,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.2.2/sha512.js"></script>
   </head>
   <body>
-    <div class="jumbotron text-center">
-      <h1>Web DiceBot's Emulator</h1>
-      Balance: <span id="balance">0.00</span> WDB
-    </div>
-
     <div class="container">
       <div class="row">
+        <h1>Web DiceBot's Emulator</h1>
+        <div class="col-sm-12">Balance: <span id="balance">0.00</span> WDB</div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Game</label>
+            <label>Game:</label>
             <select class="form-control" onchange="emulator.setGame(this)">
               <option>DICE</option>
               <!-- <option>LIMBO</option> -->
@@ -33,19 +30,19 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Balance</label>
+            <label>Balance:</label>
             <input
               type="text"
               class="form-control"
               id="enterBalance"
-              value="1000"
+              value="100"
               onchange="emulator.setBalance(this)"
             />
           </div>
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Decimal</label>
+            <label>Decimal:</label>
             <input
               type="text"
               class="form-control"
@@ -55,9 +52,9 @@
             />
           </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-5">
           <div class="form-group">
-            <label>Client seed</label>
+            <label>Client seed:</label>
             <input
               type="text"
               class="form-control"
@@ -65,8 +62,10 @@
               onchange="emulator.setClientSeed(this)"
             />
           </div>
+        </div>
+        <div class="col-sm-7">
           <div class="form-group">
-            <label>Server seed</label>
+            <label>Server seed:</label>
             <input
               type="text"
               class="form-control"
@@ -76,9 +75,8 @@
           </div>
         </div>
         <div class="col-sm-12">
-          <strong>Fairness of Dice</strong>
+          <h4>Fairness of Dice</h4>
           <pre>
-            <code>
 function getDiceRoll(serverSeed, clientSeed, nonce) {
   var hash = sha512(serverSeed + clientSeed + nonce);
   var index = 0;
@@ -88,7 +86,8 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
   } while (lucky >= 1000000);
   return lucky % 10000;
 }
-    </code></pre>
+</pre
+          >
         </div>
       </div>
     </div>
