@@ -24,6 +24,15 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group">
+            <label>Game</label>
+            <select class="form-control" onchange="emulator.setGame(this)">
+              <option>DICE</option>
+              <!-- <option>LIMBO</option> -->
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
             <label>Balance</label>
             <input
               type="text"
@@ -36,7 +45,7 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>Decimal balance</label>
+            <label>Decimal</label>
             <input
               type="text"
               class="form-control"
@@ -46,17 +55,40 @@
             />
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-12">
           <div class="form-group">
             <label>Client seed</label>
             <input
               type="text"
               class="form-control"
               id="enterClientSeed"
-              value=""
               onchange="emulator.setClientSeed(this)"
             />
           </div>
+          <div class="form-group">
+            <label>Server seed</label>
+            <input
+              type="text"
+              class="form-control"
+              id="enterServerSeed"
+              onchange="emulator.setServerSeed(this)"
+            />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <strong>Fairness of Dice</strong>
+          <pre>
+            <code>
+function getDiceRoll(serverSeed, clientSeed, nonce) {
+  var hash = sha512(serverSeed + clientSeed + nonce);
+  var index = 0;
+  do {
+    var lucky = parseInt(hash.substr(index, 5), 16);
+    index += 5;
+  } while (lucky >= 1000000);
+  return lucky % 10000;
+}
+    </code></pre>
         </div>
       </div>
     </div>
@@ -78,7 +110,11 @@
     }
 
     let emulator = {
-      balance: 1000,
+      game: "DICE",
+      setGame(target) {
+        this.game = target.value;
+      },
+      balance: 100,
       getBalance() {
         return this.balance;
       },
@@ -93,16 +129,20 @@
         this.updateStatic();
       },
       clientSeed: randomString(12),
-      serverSeed: randomString(32),
       setClientSeed(target) {
         this.clientSeed = target.value;
+        this.updateStatic();
+      },
+      serverSeed: randomString(32),
+      setServerSeed(target) {
+        this.serverSeed = target.value;
         this.updateStatic();
       },
       nonce: 0,
       upNonce() {
         this.nonce++;
       },
-      getRoll(serverSeed, clientSeed, nonce) {
+      getDiceRoll(serverSeed, clientSeed, nonce) {
         var hash = sha512(serverSeed + clientSeed + nonce);
         var index = 0;
         do {
@@ -111,12 +151,12 @@
         } while (lucky >= 1000000);
         return lucky % 10000;
       },
-      getResult(amount, target, side) {
+      getDiceResult(amount, target, side) {
         let win = null;
         let profit = null;
         let payout = 9999 / target;
         this.upNonce();
-        const resultNumber = this.getRoll(
+        const resultNumber = this.getDiceRoll(
           this.serverSeed,
           this.clientSeed,
           this.nonce
@@ -150,6 +190,7 @@
       updateStatic() {
         $("#balance").text(emulator.balance.toFixed(emulator.decimal));
         $("#enterClientSeed").val(emulator.clientSeed);
+        $("#enterServerSeed").val(emulator.serverSeed);
       },
     };
 
