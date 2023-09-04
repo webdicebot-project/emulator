@@ -224,7 +224,7 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
         } while (lucky >= 1000000);
         return lucky % 10000;
       },
-      getDiceResult(amount, target, side) {
+      async getDiceResult(amount, target, side) {
         if (amount > this.balance) throw new Error("Balance not enough");
         if (Number(amount.countDecimals()) > this.decimal)
           throw new Error("Check decimal you has set");
@@ -258,7 +258,6 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
           resultNumber,
           profit,
           nonce: this.nonce,
-          serverSeed: this.serverSeed,
         };
       },
       updateStatic() {

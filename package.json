@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "push": "git add . && git commit -m :rocket: && git push"
+  },
+  "name": "emulator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:webdicebot-project/emulator.git",
+  "author": "mhqb365 <mhqb365@gmail.com>",
+  "license": "MIT"
+}
