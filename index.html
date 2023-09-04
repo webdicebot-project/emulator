@@ -34,18 +34,20 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>
-              Game
-              <a
-                href="#"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Select the game for try"
-              >
-                ?
-              </a>
-            </label>
-            <select class="form-control" onchange="emulator.setGame(this)">
+            Game
+            <a
+              href="#"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Select the game for try"
+            >
+              ?
+            </a>
+            <select
+              id="selectGame"
+              class="form-control"
+              onchange="emulator.setGame(this)"
+            >
               <option>DICE</option>
               <!-- <option>LIMBO</option> -->
             </select>
@@ -53,17 +55,15 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>
-              Balance
-              <a
-                href="#"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Set balance to use"
-              >
-                ?
-              </a>
-            </label>
+            Balance
+            <a
+              href="#"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Set balance to use"
+            >
+              ?
+            </a>
             <input
               type="text"
               class="form-control"
@@ -75,17 +75,15 @@
         </div>
         <div class="col-sm-4">
           <div class="form-group">
-            <label>
-              Decimal
-              <a
-                href="#"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Set decimal number will show"
-              >
-                ?
-              </a>
-            </label>
+            Decimal
+            <a
+              href="#"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Set decimal number will show"
+            >
+              ?
+            </a>
             <input
               type="text"
               class="form-control"
@@ -97,17 +95,15 @@
         </div>
         <div class="col-sm-5">
           <div class="form-group">
-            <label>
-              Client seed
-              <a
-                href="#"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Client seed for check fairness"
-              >
-                ?
-              </a>
-            </label>
+            Client seed
+            <a
+              href="#"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Client seed for check fairness"
+            >
+              ?
+            </a>
             <input
               type="text"
               class="form-control"
@@ -118,17 +114,15 @@
         </div>
         <div class="col-sm-7">
           <div class="form-group">
-            <label>
-              Server seed
-              <a
-                href="#"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Server seed for check fairness"
-              >
-                ?
-              </a>
-            </label>
+            Server seed
+            <a
+              href="#"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Server seed for check fairness"
+            >
+              ?
+            </a>
             <input
               type="text"
               class="form-control"
