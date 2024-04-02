@@ -19,121 +19,137 @@
       <div class="text-center">
         <h1>Web DiceBot's Emulator</h1>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <h4>How to use?</h4>
-          <pre>
-1. Set balance you want
-2. Set decimal to show balance you want
-3. Get installer at Beta Installer then paste to Console (same another dice sites)
-4. Test your script before run into another dice sites</pre
-          >
-        </div>
-        <div class="col-sm-12">
-          <h6>Balance: <span id="balance">0.00</span> WDB</h6>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            Game
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Select the game for try"
-            >
-              ?
-            </a>
-            <select
-              id="selectGame"
-              class="form-control"
-              onchange="emulator.setGame(this)"
-            >
-              <option>DICE</option>
-              <!-- <option>LIMBO</option> -->
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            Balance
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Set balance to use"
-            >
-              ?
-            </a>
-            <input
-              type="text"
-              class="form-control"
-              id="enterBalance"
-              value="100"
-              onchange="emulator.setBalance(this)"
-            />
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            Decimal
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Set decimal number will show"
-            >
-              ?
-            </a>
-            <input
-              type="text"
-              class="form-control"
-              id="enterDecimalBalance"
-              value="2"
-              onchange="emulator.setDecimal(this)"
-            />
-          </div>
-        </div>
-        <div class="col-sm-5">
-          <div class="form-group">
-            Client seed
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Client seed for check fairness"
-            >
-              ?
-            </a>
-            <input
-              type="text"
-              class="form-control"
-              id="enterClientSeed"
-              onchange="emulator.setClientSeed(this)"
-            />
-          </div>
-        </div>
-        <div class="col-sm-7">
-          <div class="form-group">
-            Server seed
-            <a
-              href="#"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Server seed for check fairness"
-            >
-              ?
-            </a>
-            <input
-              type="text"
-              class="form-control"
-              id="enterServerSeed"
-              onchange="emulator.setServerSeed(this)"
-            />
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <h4>Fairness of DICE game</h4>
-          <pre>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#home">WDB</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#menu1">PrimeDice</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+        </li> -->
+      </ul>
+
+      <div class="tab-content">
+        <div id="home" class="container tab-pane active">
+          <br />
+          <div class="row">
+            <div class="col-sm-12">
+              <h4>How to use?</h4>
+              <pre>
+    1. Set balance you want
+    2. Set decimal to show balance you want
+    3. Get installer at Beta Installer then paste to Console (same another dice sites)
+    4. Test your script before run into another dice sites</pre
+              >
+            </div>
+            <div class="col-sm-12">
+              <h6>Balance: <span id="balance">0.00</span> WDB</h6>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                Game
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Select the game for try"
+                >
+                  ?
+                </a>
+                <select
+                  id="selectGame"
+                  class="form-control"
+                  onchange="emulator.setGame(this)"
+                >
+                  <option>DICE</option>
+                  <!-- <option>LIMBO</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                Balance
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Set balance to use"
+                >
+                  ?
+                </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="enterBalance"
+                  value="100"
+                  onchange="emulator.setBalance(this)"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                Decimal
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Set decimal number will show"
+                >
+                  ?
+                </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="enterDecimalBalance"
+                  value="2"
+                  onchange="emulator.setDecimal(this)"
+                />
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                Client seed
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Client seed for check fairness"
+                >
+                  ?
+                </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="enterClientSeed"
+                  onchange="emulator.setClientSeed(this)"
+                />
+              </div>
+            </div>
+            <div class="col-sm-7">
+              <div class="form-group">
+                Server seed
+                <a
+                  href="#"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Server seed for check fairness"
+                >
+                  ?
+                </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="enterServerSeed"
+                  onchange="emulator.setServerSeed(this)"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h4>Fairness of DICE game</h4>
+              <pre>
 function getDiceRoll(serverSeed, clientSeed, nonce) {
   var hash = sha512(serverSeed + clientSeed + nonce);
   var index = 0;
@@ -143,9 +159,39 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
   } while (lucky >= 1000000);
   return lucky % 10000;
 }
-</pre
-          >
+    </pre
+              >
+            </div>
+          </div>
         </div>
+        <div id="menu1" class="container tab-pane fade">
+          <br />
+          <div class="input-group mb-3 w-50">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="PrimeDice API key"
+              id="primeDiceAPIKey"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-success"
+                type="submit"
+                onclick="savePrimeDiceAPIKey()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- <div id="menu2" class="container tab-pane fade">
+          <br />
+          <h3>Menu 2</h3>
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam.
+          </p>
+        </div> -->
       </div>
     </div>
   </body>
@@ -263,6 +309,15 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
 
     $(document).ready(() => {
       emulator.updateStatic();
+
+      if (localStorage.getItem("primeDiceAPIKey"))
+        $("#primeDiceAPIKey").val(localStorage.getItem("primeDiceAPIKey"));
     });
+
+    function savePrimeDiceAPIKey() {
+      const apiKey = $("#primeDiceAPIKey").val();
+      localStorage.setItem("primeDiceAPIKey", apiKey);
+      alert("Saved");
+    }
   </script>
 </html>
