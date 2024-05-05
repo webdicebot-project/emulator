@@ -1,155 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Web DiceBot's Emulator</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.2.2/sha512.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="text-center">
-        <h1>Web DiceBot's Emulator</h1>
-      </div>
+<head>
+  <title>Web DiceBot's Emulator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-      <ul class="nav nav-tabs" role="tablist">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.2.2/sha512.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="text-center py-2">
+      <h1>Web DiceBot's Emulator</h1>
+    </div>
+
+    <!-- <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#home">WDB</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#menu1">PrimeDice</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
-        </li> -->
-      </ul>
+      </ul> -->
 
-      <div class="tab-content">
-        <div id="home" class="container tab-pane active">
-          <br />
-          <div class="row">
-            <div class="col-sm-12">
-              <h4>How to use?</h4>
-              <pre>
+    <div class="tab-content">
+      <div id="home" class="container tab-pane active">
+        <br />
+        <div class="row">
+          <div class="col-sm-12">
+            <h4>How to use?</h4>
+            <pre>
     1. Set balance you want
     2. Set decimal to show balance you want
     3. Get installer at Beta Installer then paste to Console (same another dice sites)
-    4. Test your script before run into another dice sites</pre
-              >
+    4. Test your script before run into another dice sites</pre>
+          </div>
+          <div class="col-sm-12">
+            <h6>Balance: <span id="balance">0.00</span> WDB</h6>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              Game
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Select the game for try">
+                ?
+              </a>
+              <select id="selectGame" class="form-control" onchange="emulator.setGame(this)">
+                <option>DICE</option>
+                <!-- <option>LIMBO</option> -->
+              </select>
             </div>
-            <div class="col-sm-12">
-              <h6>Balance: <span id="balance">0.00</span> WDB</h6>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              Balance
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Set balance to use">
+                ?
+              </a>
+              <input type="text" class="form-control" id="enterBalance" value="100"
+                onchange="emulator.setBalance(this)" />
             </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                Game
-                <a
-                  href="#"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Select the game for try"
-                >
-                  ?
-                </a>
-                <select
-                  id="selectGame"
-                  class="form-control"
-                  onchange="emulator.setGame(this)"
-                >
-                  <option>DICE</option>
-                  <!-- <option>LIMBO</option> -->
-                </select>
-              </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              Decimal
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Set decimal number will show">
+                ?
+              </a>
+              <input type="text" class="form-control" id="enterDecimalBalance" value="2"
+                onchange="emulator.setDecimal(this)" />
             </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                Balance
-                <a
-                  href="#"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Set balance to use"
-                >
-                  ?
-                </a>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="enterBalance"
-                  value="100"
-                  onchange="emulator.setBalance(this)"
-                />
-              </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="form-group">
+              Client seed
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Client seed for check fairness">
+                ?
+              </a>
+              <input type="text" class="form-control" id="enterClientSeed" onchange="emulator.setClientSeed(this)" />
             </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                Decimal
-                <a
-                  href="#"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Set decimal number will show"
-                >
-                  ?
-                </a>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="enterDecimalBalance"
-                  value="2"
-                  onchange="emulator.setDecimal(this)"
-                />
-              </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="form-group">
+              Server seed
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Server seed for check fairness">
+                ?
+              </a>
+              <input type="text" class="form-control" id="enterServerSeed" onchange="emulator.setServerSeed(this)" />
             </div>
-            <div class="col-sm-5">
-              <div class="form-group">
-                Client seed
-                <a
-                  href="#"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Client seed for check fairness"
-                >
-                  ?
-                </a>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="enterClientSeed"
-                  onchange="emulator.setClientSeed(this)"
-                />
-              </div>
-            </div>
-            <div class="col-sm-7">
-              <div class="form-group">
-                Server seed
-                <a
-                  href="#"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Server seed for check fairness"
-                >
-                  ?
-                </a>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="enterServerSeed"
-                  onchange="emulator.setServerSeed(this)"
-                />
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <h4>Fairness of DICE game</h4>
-              <pre>
+          </div>
+          <div class="col-sm-12">
+            <h4>Fairness of DICE game</h4>
+            <pre>
 function getDiceRoll(serverSeed, clientSeed, nonce) {
   var hash = sha512(serverSeed + clientSeed + nonce);
   var index = 0;
@@ -159,32 +105,22 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
   } while (lucky >= 1000000);
   return lucky % 10000;
 }
-    </pre
-              >
-            </div>
+    </pre>
           </div>
         </div>
-        <div id="menu1" class="container tab-pane fade">
-          <br />
-          <div class="input-group mb-3 w-50">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="PrimeDice API key"
-              id="primeDiceAPIKey"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-success"
-                type="submit"
-                onclick="savePrimeDiceAPIKey()"
-              >
-                Save
-              </button>
-            </div>
+      </div>
+      <div id="menu1" class="container tab-pane fade">
+        <br />
+        <div class="input-group mb-3 w-50">
+          <input type="text" class="form-control" placeholder="PrimeDice API key" id="primeDiceAPIKey" />
+          <div class="input-group-append">
+            <button class="btn btn-success" type="submit" onclick="savePrimeDiceAPIKey()">
+              Save
+            </button>
           </div>
         </div>
-        <!-- <div id="menu2" class="container tab-pane fade">
+      </div>
+      <!-- <div id="menu2" class="container tab-pane fade">
           <br />
           <h3>Menu 2</h3>
           <p>
@@ -192,132 +128,133 @@ function getDiceRoll(serverSeed, clientSeed, nonce) {
             accusantium doloremque laudantium, totam rem aperiam.
           </p>
         </div> -->
-      </div>
     </div>
-  </body>
+  </div>
+</body>
 
-  <script>
-    function randomString(length) {
-      let result = "";
-      const characters = "abcdef1234567890";
-      const charactersLength = characters.length;
-      let counter = 0;
-      while (counter < length) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-        counter += 1;
-      }
-      return result;
+<script>
+  function randomString(length) {
+    let result = "";
+    const characters = "abcdef1234567890";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+      counter += 1;
     }
+    return result;
+  }
 
-    Number.prototype.countDecimals = function () {
-      if (Math.floor(this.valueOf()) === this.valueOf()) return 0;
-      var str = this.toString();
-      if (str.indexOf(".") !== -1 && str.indexOf("-") !== -1) {
-        return str.split("-")[1] || 0;
-      } else if (str.indexOf(".") !== -1) {
-        return str.split(".")[1].length || 0;
-      }
+  Number.prototype.countDecimals = function () {
+    if (Math.floor(this.valueOf()) === this.valueOf()) return 0;
+    var str = this.toString();
+    if (str.indexOf(".") !== -1 && str.indexOf("-") !== -1) {
       return str.split("-")[1] || 0;
-    };
-
-    let emulator = {
-      game: "DICE",
-      setGame(target) {
-        this.game = target.value;
-      },
-      balance: 100,
-      getBalance() {
-        return this.balance;
-      },
-      setBalance(target) {
-        // console.log(target.value);
-        this.balance = Number(target.value);
-        this.updateStatic();
-      },
-      decimal: 2,
-      setDecimal(target) {
-        this.decimal = Number(target.value);
-        this.updateStatic();
-      },
-      clientSeed: randomString(12),
-      setClientSeed(target) {
-        this.clientSeed = target.value;
-        this.updateStatic();
-      },
-      serverSeed: randomString(32),
-      setServerSeed(target) {
-        this.serverSeed = target.value;
-        this.updateStatic();
-      },
-      nonce: 0,
-      upNonce() {
-        this.nonce++;
-      },
-      getDiceRoll(serverSeed, clientSeed, nonce) {
-        var hash = sha512(serverSeed + clientSeed + nonce);
-        var index = 0;
-        do {
-          var lucky = parseInt(hash.substr(index, 5), 16);
-          index += 5;
-        } while (lucky >= 1000000);
-        return lucky % 10000;
-      },
-      async getDiceResult(amount, target, side) {
-        if (amount > this.balance) throw new Error("Balance not enough");
-        if (Number(amount.countDecimals()) > this.decimal)
-          throw new Error("Check decimal you has set");
-        let win = false;
-        let profit = null;
-        let payout = null;
-        this.upNonce();
-        const resultNumber = this.getDiceRoll(
-          this.serverSeed,
-          this.clientSeed,
-          this.nonce
-        );
-        if (side === "over") {
-          payout = 9999 / (9999 - target);
-          // console.log(payout);
-          if (resultNumber > target) win = true;
-          // console.log(win);
-        } else if (side === "under") {
-          payout = 9999 / target;
-          // console.log(payout);
-          if (resultNumber < target) win = true;
-          // console.log(win);
-        }
-        if (win) {
-          profit = amount * payout - amount;
-        } else {
-          profit = 0 - amount;
-        }
-        profit = Number(profit.toFixed(emulator.decimal));
-        return {
-          resultNumber,
-          profit,
-          nonce: this.nonce,
-        };
-      },
-      updateStatic() {
-        $("#balance").text(emulator.balance.toFixed(emulator.decimal));
-        $("#enterClientSeed").val(emulator.clientSeed);
-        $("#enterServerSeed").val(emulator.serverSeed);
-      },
-    };
-
-    $(document).ready(() => {
-      emulator.updateStatic();
-
-      if (localStorage.getItem("primeDiceAPIKey"))
-        $("#primeDiceAPIKey").val(localStorage.getItem("primeDiceAPIKey"));
-    });
-
-    function savePrimeDiceAPIKey() {
-      const apiKey = $("#primeDiceAPIKey").val();
-      localStorage.setItem("primeDiceAPIKey", apiKey);
-      alert("Saved");
+    } else if (str.indexOf(".") !== -1) {
+      return str.split(".")[1].length || 0;
     }
-  </script>
+    return str.split("-")[1] || 0;
+  };
+
+  let emulator = {
+    game: "DICE",
+    setGame(target) {
+      this.game = target.value;
+    },
+    balance: 100,
+    getBalance() {
+      return this.balance;
+    },
+    setBalance(target) {
+      // console.log(target.value);
+      this.balance = Number(target.value);
+      this.updateStatic();
+    },
+    decimal: 2,
+    setDecimal(target) {
+      this.decimal = Number(target.value);
+      this.updateStatic();
+    },
+    clientSeed: randomString(12),
+    setClientSeed(target) {
+      this.clientSeed = target.value;
+      this.updateStatic();
+    },
+    serverSeed: randomString(32),
+    setServerSeed(target) {
+      this.serverSeed = target.value;
+      this.updateStatic();
+    },
+    nonce: 0,
+    upNonce() {
+      this.nonce++;
+    },
+    getDiceRoll(serverSeed, clientSeed, nonce) {
+      var hash = sha512(serverSeed + clientSeed + nonce);
+      var index = 0;
+      do {
+        var lucky = parseInt(hash.substr(index, 5), 16);
+        index += 5;
+      } while (lucky >= 1000000);
+      return lucky % 10000;
+    },
+    async getDiceResult(amount, target, side) {
+      if (amount > this.balance) throw new Error("Balance not enough");
+      if (Number(amount.countDecimals()) > this.decimal)
+        throw new Error("Check decimal you has set");
+      let win = false;
+      let profit = null;
+      let payout = null;
+      this.upNonce();
+      const resultNumber = this.getDiceRoll(
+        this.serverSeed,
+        this.clientSeed,
+        this.nonce
+      );
+      if (side === "over") {
+        payout = 9999 / (9999 - target);
+        // console.log(payout);
+        if (resultNumber > target) win = true;
+        // console.log(win);
+      } else if (side === "under") {
+        payout = 9999 / target;
+        // console.log(payout);
+        if (resultNumber < target) win = true;
+        // console.log(win);
+      }
+      if (win) {
+        profit = amount * payout - amount;
+      } else {
+        profit = 0 - amount;
+      }
+      profit = Number(profit.toFixed(emulator.decimal));
+      return {
+        resultNumber,
+        profit,
+        nonce: this.nonce,
+      };
+    },
+    updateStatic() {
+      $("#balance").text(emulator.balance.toFixed(emulator.decimal));
+      $("#enterClientSeed").val(emulator.clientSeed);
+      $("#enterServerSeed").val(emulator.serverSeed);
+    },
+  };
+
+  $(document).ready(() => {
+    emulator.updateStatic();
+
+    if (localStorage.getItem("primeDiceAPIKey"))
+      $("#primeDiceAPIKey").val(localStorage.getItem("primeDiceAPIKey"));
+  });
+
+  function savePrimeDiceAPIKey() {
+    const apiKey = $("#primeDiceAPIKey").val();
+    localStorage.setItem("primeDiceAPIKey", apiKey);
+    alert("Saved");
+  }
+</script>
+
 </html>
